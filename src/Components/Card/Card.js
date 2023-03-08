@@ -35,7 +35,6 @@ const MyCard = (props) => {
       <div className="col-md-4 col-xs-12 col-lg-3 col-sm-12">
         <Card
           style={{
-            width: 300,
             margin: "15px",
           }}
           cover={
@@ -64,8 +63,8 @@ const MyCard = (props) => {
                 />
               </button>
             ),
-            <EditOutlined key="edit" style={{ fontSize: "18px" }} />,
-            <button onClick={showModal}><DeleteFilled key="Delete" style={{ fontSize: "18px" }} /></button>,
+            <button onClick={showModal}><EditOutlined key="edit" style={{ fontSize: "18px" }} /></button>,
+            <DeleteFilled key="Delete" style={{ fontSize: "18px" }} />,
           ]}
         >
           <h3>{name}</h3>
@@ -88,6 +87,10 @@ const MyCard = (props) => {
         isModalOpen={isModalOpen}
         handleOk={handleOk}
         handleCancel={handleCancel}
+        candidateName={name}
+        candidateEmail={email}
+        candidatePhone={phone}
+        candidateWebsite={website}
       />
     </>
   );

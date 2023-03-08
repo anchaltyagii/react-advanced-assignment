@@ -1,0 +1,14 @@
+.body-wrapper {
+  /* padding: 24px; */
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+}
