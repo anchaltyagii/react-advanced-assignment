@@ -7,12 +7,13 @@
 
 .ant-card-bordered {
   border: 1px solid #e8e8e8;
+  border-radius: 2px !important;
 }
 
 .email-info {
   display: flex;
   flex-direction: row;
-  color: rgba(0,0,0,.65);
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .email-info p {
@@ -28,4 +29,86 @@ button {
   border: 0px;
   background-color: #fff;
   cursor: pointer;
+}
+
+.border-red {
+  border-color: #f5222d !important;
+  box-shadow: none !important;
+}
+
+.error-msg {
+  color: #f5222d;
+  font-size: 14px;
+}
+
+.body-wrapper {
+  padding: 24px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.form-control {
+  height: 32px;
+  font-size: 14px !important;
+  color: rgba(0, 0, 0, 0.65) !important;
+  line-height: 1.5 !important;
+}
+
+button {
+  color: inherit;
+}
+
+.anticon svg {
+  color: inherit;
+}
+
+.input-label {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 39.9999px;
+  white-space: nowrap;
+  text-align: right;
+  vertical-align: middle;
+  width: 30%;
+  margin-right: 8px;
+}
+
+hr {
+  opacity: 0.1 !important;
+  margin: 0 !important;
+}
+
+.ant-modal-content {
+  padding: 0px !important;
+}
+
+.ant-modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e8e8e8;
+  margin-bottom: 0px !important;
+}
+
+.ant-modal-footer {
+  padding: 10px 16px;
+  border-top: 1px solid #e8e8e8;
+  margin-top: 0px !important;
+}
+
+.ant-card-actions {
+  background: #fafafa !important;
+}
+
+.ant-card-cover {
+  border-left: 1px solid #e8e8e8;
+  border-right: 1px solid #e8e8e8;
+  border-top: 1px solid #e8e8e8;
 }

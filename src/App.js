@@ -7,18 +7,24 @@ function App() {
   const [cardData, setCardData] = useState([]);
   const [loader, setLoader] = useState(true);
 
+  // fetching the data & storing
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/users").then((response) => {
       setCardData(response.data);
-      setLoader(false);
+      if (response) setLoader(false);
     });
+    if (cardData.length === 0) {
+      setLoader(true);
+    }
   }, []);
 
+  // Delete function to delete card
   const handleDelete = (id) => {
     const updateData = cardData.filter((el) => el.id !== id);
     setCardData(updateData);
   };
 
+  // Edit function to edit card details
   const handleEdit = (id, data) => {
     const index = cardData.findIndex((el) => el.id === data.id);
     setCardData(
@@ -30,11 +36,12 @@ function App() {
 
   return (
     <>
-      {!loader ? (
+      {!(cardData.length === 0) ? (
         <div className="row" style={{ margin: "0px" }}>
           {cardData?.map((el, key) => {
             return (
               <MyCard
+                key={key}
                 id={el.id}
                 username={el.username}
                 name={el.name}

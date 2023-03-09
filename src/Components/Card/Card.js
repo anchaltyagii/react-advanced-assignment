@@ -9,11 +9,8 @@ import {
   HeartFilled,
 } from "@ant-design/icons";
 import { Card } from "antd";
-import EditModal from "../Modal/EditModal";
 import "./Card.css";
 import { Modal } from "antd";
-import "../Modal/EditModal.css";
-const { Meta } = Card;
 
 const MyCard = (props) => {
   const {
@@ -48,15 +45,34 @@ const MyCard = (props) => {
     });
   }, [id, name, email, phone, website]);
 
+  // Handle show modal
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    handleEdit(id, candidateData);
-    setIsModalOpen(false);
+  // validating email
+  const validateEmail = (email) => {
+    return email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
   };
 
+  // handling submit ok btn
+  const handleOk = () => {
+    if (validateEmail(candidateData.email)) {
+      if (
+        candidateData.name &&
+        candidateData.email &&
+        candidateData.phone &&
+        candidateData.website
+      ) {
+        handleEdit(id, candidateData);
+        setIsModalOpen(false);
+      }
+    }
+  };
+
+  // handle cancel modal
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -113,23 +129,12 @@ const MyCard = (props) => {
           </div>
           <div className="email-info">
             <GlobalOutlined style={{ fontSize: "18px" }} />
-            <p>{website}</p>
+            <p>http://{website}</p>
           </div>
         </Card>
       </div>
 
-      {/* <EditModal
-        isModalOpen={isModalOpen}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
-        candidateId={candidateData.id}
-        candidateName={candidateData.name}
-        candidateEmail={candidateData.email}
-        candidatePhone={candidateData.phone}
-        candidateWebsite={candidateData.website}
-        // handleEdit={handleEdit(name, email, phone, website, id)}
-      /> */}
-
+      {/* Edit Modal */}
       <Modal
         title="Basic Modal"
         open={isModalOpen}
@@ -148,10 +153,18 @@ const MyCard = (props) => {
                 onChange={(e) =>
                   setCandidateData({ ...candidateData, name: e.target.value })
                 }
-                className="form-control"
+                className={
+                  !candidateData.name
+                    ? "form-control border-red"
+                    : "form-control"
+                }
               />
+              {!candidateData.name ? (
+                <div className="error-msg">This field is required</div>
+              ) : null}
             </div>
           </div>
+
           <div className="input-wrapper">
             <div className="input-label">
               <span style={{ color: "red" }}>*</span> Email :
@@ -163,8 +176,17 @@ const MyCard = (props) => {
                 onChange={(e) =>
                   setCandidateData({ ...candidateData, email: e.target.value })
                 }
-                className="form-control"
+                className={
+                  !candidateData.email || !validateEmail(candidateData.email)
+                    ? "form-control border-red"
+                    : "form-control"
+                }
               />
+              {!candidateData.email ? (
+                <div className="error-msg">This field is required</div>
+              ) : !validateEmail(candidateData.email) ? (
+                <div className="error-msg">Invalid email</div>
+              ) : null}
             </div>
           </div>
           <div className="input-wrapper">
@@ -178,8 +200,15 @@ const MyCard = (props) => {
                 onChange={(e) =>
                   setCandidateData({ ...candidateData, phone: e.target.value })
                 }
-                className="form-control"
+                className={
+                  !candidateData.phone
+                    ? "form-control border-red"
+                    : "form-control"
+                }
               />
+              {!candidateData.phone ? (
+                <div className="error-msg">This field is required</div>
+              ) : null}
             </div>
           </div>
           <div className="input-wrapper">
@@ -196,8 +225,15 @@ const MyCard = (props) => {
                     website: e.target.value,
                   })
                 }
-                className="form-control"
+                className={
+                  !candidateData.website
+                    ? "form-control border-red"
+                    : "form-control"
+                }
               />
+              {!candidateData.website ? (
+                <div className="error-msg">This field is required</div>
+              ) : null}
             </div>
           </div>
         </div>
