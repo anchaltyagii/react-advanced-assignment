@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   EditOutlined,
   HeartOutlined,
@@ -11,13 +11,26 @@ import {
 import { Card } from "antd";
 import EditModal from "../Modal/EditModal";
 import "./Card.css";
+import { Modal } from "antd";
+import "../Modal/EditModal.css";
 const { Meta } = Card;
 
 const MyCard = (props) => {
-  const { name, email, phone, website, username } = props;
+  const { name, email, phone, website, username, id, handleDelete } = props;
 
   const [heartClicked, setHeartClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [editEmail, setEmail] = useState(email);
+  const [editName, setEditName] = useState(name);
+  const [editPhone, setPhone] = useState(phone);
+  const [editWebsite, setWebsite] = useState(website);
+  console.log(editName);
+
+  const handleEdit = (name, email, phone, website) => {
+    console.log("hhh");
+    setEditName(name);
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -25,16 +38,22 @@ const MyCard = (props) => {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    handleEdit(name, email, phone, website);
   };
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  // useEffect(() => {
+  //   handleEdit();
+  // })
 
   return (
     <>
       <div className="col-md-4 col-xs-12 col-lg-3 col-sm-12">
         <Card
           style={{
+            
             margin: "15px",
           }}
           cover={
@@ -63,8 +82,12 @@ const MyCard = (props) => {
                 />
               </button>
             ),
-            <button onClick={showModal}><EditOutlined key="edit" style={{ fontSize: "18px" }} /></button>,
-            <DeleteFilled key="Delete" style={{ fontSize: "18px" }} />,
+            <button onClick={showModal}>
+              <EditOutlined key="edit" style={{ fontSize: "18px" }} />
+            </button>,
+            <button onClick={() => handleDelete(id)}>
+              <DeleteFilled key="Delete" style={{ fontSize: "18px" }} />
+            </button>,
           ]}
         >
           <h3>{name}</h3>
@@ -91,6 +114,7 @@ const MyCard = (props) => {
         candidateEmail={email}
         candidatePhone={phone}
         candidateWebsite={website}
+        handleEdit={handleEdit}
       />
     </>
   );

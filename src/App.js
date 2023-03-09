@@ -13,6 +13,12 @@ function App() {
       setLoader(false);
     });
   }, []);
+
+  const handleDelete = (id) => {
+    const updateData = cardData.filter((el)=> el.id !== id);
+    setCardData(updateData);
+  }
+  console.log(cardData);
   return (
     <>
       {!loader ? (
@@ -20,7 +26,7 @@ function App() {
           {cardData.map((el, key) => {
             return (
               <MyCard
-                id={key}
+                id={el.id}
                 username={el.username}
                 name={el.name}
                 email={el.email}
@@ -28,6 +34,7 @@ function App() {
                 company={el.company.name}
                 website={el.website}
                 address={`${el.address.street}, ${el.address.suite}, ${el.address.city}, ${el.address.zipcode}`}
+                handleDelete ={handleDelete}
               />
             );
           })}
