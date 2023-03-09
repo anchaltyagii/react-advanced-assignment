@@ -15,15 +15,31 @@ function App() {
   }, []);
 
   const handleDelete = (id) => {
-    const updateData = cardData.filter((el)=> el.id !== id);
+    const updateData = cardData.filter((el) => el.id !== id);
     setCardData(updateData);
-  }
-  console.log(cardData);
+  };
+
+  const handleEdit = (id, data) => {
+    // if(data.id === id) {
+    // setCardData([...cardData, data]);
+    // }
+    const myname = cardData.map((el,key) => {
+      if(el.id === id) {
+        cardData[key].name = data.name;
+      }
+    });
+    setCardData(myname);
+  };
+   console.log("card Data", cardData);
+  // useEffect(() => {
+  //   console.log("item changed", cardData);
+  // }, [cardData]);
+
   return (
     <>
       {!loader ? (
-        <div className="row" style={{margin: "0px"}}>
-          {cardData.map((el, key) => {
+        <div className="row" style={{ margin: "0px" }}>
+          {cardData?.map((el, key) => {
             return (
               <MyCard
                 id={el.id}
@@ -31,10 +47,10 @@ function App() {
                 name={el.name}
                 email={el.email}
                 phone={el.phone}
-                company={el.company.name}
+                company={el.company?.name}
                 website={el.website}
-                address={`${el.address.street}, ${el.address.suite}, ${el.address.city}, ${el.address.zipcode}`}
-                handleDelete ={handleDelete}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
               />
             );
           })}

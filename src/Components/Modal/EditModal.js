@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "antd";
 import "./EditModal.css";
 
@@ -7,6 +7,7 @@ const EditModal = (props) => {
     isModalOpen,
     handleOk,
     handleCancel,
+    candidateId,
     candidateEmail,
     candidateName,
     candidatePhone,
@@ -14,11 +15,23 @@ const EditModal = (props) => {
     handleEdit,
   } = props;
 
-  const [email, setEmail] = useState(candidateEmail);
-  const [name, setName] = useState(candidateName);
-  const [phone, setPhone] = useState(candidatePhone);
-  const [website, setWebsite] = useState(candidateWebsite);
-  console.log(email, name, phone, website);
+  const [candidateData, setCandidateData] = useState({
+    id: candidateId,
+    name: candidateName,
+    email: candidateEmail,
+    phone: candidatePhone,
+    website: candidateWebsite,
+  });
+
+  console.log(
+    candidateData.email,
+    candidateData.name,
+    candidateData.phone,
+    candidateData.website
+  );
+  
+
+
 
   return (
     <>
@@ -36,8 +49,10 @@ const EditModal = (props) => {
             <div style={{ width: "66%" }}>
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={candidateData.name}
+                onChange={(e) =>
+                  setCandidateData({ ...candidateData, name: e.target.value })
+                }
                 className="form-control"
               />
             </div>
@@ -49,8 +64,10 @@ const EditModal = (props) => {
             <div style={{ width: "66%" }}>
               <input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={candidateData.email}
+                onChange={(e) =>
+                  setCandidateData({ ...candidateData, email: e.target.value })
+                }
                 className="form-control"
               />
             </div>
@@ -62,8 +79,10 @@ const EditModal = (props) => {
             <div style={{ width: "66%" }}>
               <input
                 type="text"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={candidateData.phone}
+                onChange={(e) =>
+                  setCandidateData({ ...candidateData, phone: e.target.value })
+                }
                 className="form-control"
               />
             </div>
@@ -75,14 +94,19 @@ const EditModal = (props) => {
             <div style={{ width: "66%" }}>
               <input
                 type="text"
-                value={website}
-                onChange={(e) => setWebsite(e.target.value)}
+                value={candidateData.website}
+                onChange={(e) =>
+                  setCandidateData({
+                    ...candidateData,
+                    website: e.target.value,
+                  })
+                }
                 className="form-control"
               />
             </div>
           </div>
         </div>
-        {/* <button onClick={() => handleEdit(name,email,phone,website)}>OK</button> */}
+        <button onClick={() => handleEdit(candidateData)}>OK</button>
       </Modal>
     </>
   );
