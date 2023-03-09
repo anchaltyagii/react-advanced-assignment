@@ -20,20 +20,13 @@ function App() {
   };
 
   const handleEdit = (id, data) => {
-    // if(data.id === id) {
-    // setCardData([...cardData, data]);
-    // }
-    const myname = cardData.map((el,key) => {
-      if(el.id === id) {
-        cardData[key].name = data.name;
-      }
-    });
-    setCardData(myname);
+    const index = cardData.findIndex((el) => el.id === data.id);
+    setCardData(
+      cardData.map((content, i) =>
+        i === index ? { ...content, ...data } : content
+      )
+    );
   };
-   console.log("card Data", cardData);
-  // useEffect(() => {
-  //   console.log("item changed", cardData);
-  // }, [cardData]);
 
   return (
     <>

@@ -30,11 +30,6 @@ const MyCard = (props) => {
   const [heartClicked, setHeartClicked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [editEmail, setEmail] = useState(email);
-  const [editName, setEditName] = useState(name);
-  const [editPhone, setPhone] = useState(phone);
-  const [editWebsite, setWebsite] = useState(website);
-
   const [candidateData, setCandidateData] = useState({
     id: id,
     name: name,
@@ -43,7 +38,15 @@ const MyCard = (props) => {
     website: website,
   });
 
-  console.log(candidateData);
+  useEffect(() => {
+    setCandidateData({
+      id: id,
+      name: name,
+      email: email,
+      phone: phone,
+      website: website,
+    });
+  }, [id, name, email, phone, website]);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -127,7 +130,7 @@ const MyCard = (props) => {
         // handleEdit={handleEdit(name, email, phone, website, id)}
       /> */}
 
-       <Modal
+      <Modal
         title="Basic Modal"
         open={isModalOpen}
         onOk={handleOk}
@@ -198,7 +201,6 @@ const MyCard = (props) => {
             </div>
           </div>
         </div>
-        {/* <button onClick={() => handleEdit(candidateData)}>OK</button> */}
       </Modal>
     </>
   );
